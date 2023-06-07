@@ -9,3 +9,10 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Task{
+  id Int @id @default(autoincrement())
+  title String @unique
+  due_on DateTime?
+  is_done Boolean @default(false)
+}

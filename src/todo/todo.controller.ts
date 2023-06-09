@@ -1,15 +1,17 @@
 import { Controller, Get } from '@nestjs/common';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 @Controller('todo')
 export class TodoController {
+    constructor(
+        private prisma: PrismaService
+    ) { }
+    
     @Get("list")
-    getList() {
+    async getList() {
+        const result= await this.prisma.task.findMany()
         return [
-            {
-                title: "牛乳を買いに行く",
-                due_on: "2022-12-24",
-                done:false
-            }
+            ...result
         ]
     }
 
